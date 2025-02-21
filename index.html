@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Filter</title>
+  </head>
+
+  <style>
+    body {
+      background-color: rgb(52, 53, 58);
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    textarea {
+      background-color: rgb(80, 80, 84);
+      color: white;
+      height: 300px;
+      width: 600px;
+      border: none;
+      border-style: none;
+      outline: none;
+      border-radius: 5px;
+    }
+
+    .form {
+      max-width: 600px;
+    }
+
+    #result {
+      background-color: rgb(80, 80, 84);
+      border-radius: 5px;
+      padding: 10px 10px 10px 10px;
+    }
+
+    button {
+      height: 30px;
+      width: 200px;
+      cursor: pointer;
+      background-color: rgb(188, 98, 56);
+      outline: none;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      float: right;
+      font-size: large;
+    }
+
+    button:hover {
+      background-color: rgb(238, 138, 88);
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    li {
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .item {
+      color: rgb(141, 188, 209);
+    }
+  </style>
+  <body>
+    <div class="content">
+      <div class="form">
+        <textarea id="data" placeholder="Enter entire Process List"></textarea>
+        <br />
+        <button id="filter">Filter</button>
+      </div>
+
+      <h1>Result:</h1>
+      <div id="result">
+        <ul id="results"></ul>
+      </div>
+    </div>
+
+    <script>
+      const filterButton = document.getElementById("filter");
+      function applyFilter() {
+        let data = document.getElementById("data").value;
+
+        if (data.includes("! *")) data = data.split("! *")[1];
+
+        const results = document.getElementById("results");
+        results.innerHTML = "";
+        data = data.split(",");
+        for (const item of data) {
+          if (
+            !item.includes("/System/") &&
+            !item.includes("C:\\Windows\\") &&
+            !item.includes("C:\\Program Files\\WindowsApps\\") &&
+            !item.includes("/usr/libexec/") &&
+            !item.includes("/usr/sbin")
+          )
+            results.innerHTML += `<li><a target='_blank' class='item' href='https://www.google.com/search?q=what+is+${
+              item.split(" ")[1]
+            }'">${item}</a></li>`;
+        }
+      }
+      filterButton.addEventListener("click", applyFilter);
+    </script>
+  </body>
+</html>
