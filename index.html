@@ -81,10 +81,8 @@
     <script>
       const filterButton = document.getElementById("filter");
       function applyFilter() {
-        let data = document.getElementById("data").value;
-
+        let data = ` ${document.getElementById("data").value}`;
         if (data.includes("! *")) data = data.split("! *")[1];
-
         const results = document.getElementById("results");
         results.innerHTML = "";
         data = data.split(",");
